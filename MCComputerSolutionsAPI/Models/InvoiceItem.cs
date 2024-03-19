@@ -8,9 +8,9 @@ namespace MCComputerSolutionsAPI.Models
         [Key]
         public int InvoiceItemId { get; set; }
         [Required]
-        public int InvoiceId { get; set; }
         [ForeignKey("InvoiceId")]
-        public virtual Invoice? Invoice { get; set; }
+        public int InvoiceId { get; set; }
+ 
         [Required]
         public string? ProductName { get; set; }
         [Required]

@@ -49,7 +49,7 @@ namespace MCComputerSolutionsAPI.Services
                 CustomerName = invoice.CustomerName,
                 TransactionDate = DateTime.UtcNow,
                 Discount = invoice.Discount ?? 0,
-                InvoiceItems = invoice.Items.Select(item => GetProductById(item.ParchasedProductId)).ToList(),
+                //InvoiceItems = invoice.Items.Select(item => GetProductById(item.ParchasedProductId)).ToList(),
                 TotalAmount = CalculateTotalAmount(invoice),
             };
 
@@ -71,6 +71,7 @@ namespace MCComputerSolutionsAPI.Services
                 totalAmount += (double)subTotal;
             }
 
+            
             if(invoice.Discount != 0)
             {
                 totalAmount = (double)(totalAmount * invoice.Discount) / 100;

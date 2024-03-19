@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MCComputerSolutionsAPI.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20240319081828_Initial-Migration")]
+    [Migration("20240319145941_Initial-Migration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -87,9 +87,6 @@ namespace MCComputerSolutionsAPI.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProductId"));
 
-                    b.Property<int?>("InvoiceId")
-                        .HasColumnType("int");
-
                     b.Property<decimal?>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -98,27 +95,16 @@ namespace MCComputerSolutionsAPI.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.HasIndex("InvoiceId");
-
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("MCComputerSolutionsAPI.Models.InvoiceItem", b =>
                 {
-                    b.HasOne("MCComputerSolutionsAPI.Models.Invoice", "Invoice")
-                        .WithMany()
+                    b.HasOne("MCComputerSolutionsAPI.Models.Invoice", null)
+                        .WithMany("InvoiceItems")
                         .HasForeignKey("InvoiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Invoice");
-                });
-
-            modelBuilder.Entity("MCComputerSolutionsAPI.Models.Product", b =>
-                {
-                    b.HasOne("MCComputerSolutionsAPI.Models.Invoice", null)
-                        .WithMany("InvoiceItems")
-                        .HasForeignKey("InvoiceId");
                 });
 
             modelBuilder.Entity("MCComputerSolutionsAPI.Models.Invoice", b =>

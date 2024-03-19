@@ -4,6 +4,8 @@ using MCComputerSolutionsAPI.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace MCComputerSolutionsAPI.Controllers
@@ -25,6 +27,7 @@ namespace MCComputerSolutionsAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllInvoice()
         {
+
             List<Invoice> invoices = await _databaseContext.Invoices.Include(invoice => invoice.InvoiceItems).ToListAsync(); 
 
             if (invoices != null)
@@ -42,7 +45,8 @@ namespace MCComputerSolutionsAPI.Controllers
         {
             try
             {
-                if(invoiceData == null)
+
+                if (invoiceData == null)
                 {
                     return BadRequest("Invoice data is null");
                 }
@@ -55,6 +59,7 @@ namespace MCComputerSolutionsAPI.Controllers
                     await _databaseContext.SaveChangesAsync();
 
                     Invoice latestInvoice = new Invoice(); 
+                    List<InvoiceItem> invoiceItems = new List<InvoiceItem>();
                     latestInvoice = _invoiceService.GetInvoice();
 
                     if(latestInvoice != null)
@@ -72,20 +77,22 @@ namespace MCComputerSolutionsAPI.Controllers
                                 Quantity = product.Quantity
                             };
 
+                            invoiceItems.Add(invoiceItem);
                             _databaseContext.InvoicesItems.Add(invoiceItem);
                             await _databaseContext.SaveChangesAsync();
                         }
 
                     }
 
+                    newInvoice.InvoiceItems = invoiceItems;
 
-                    var Response = new ResponseInvoiceData
-                    {
-                        NewInvoice = newInvoice,
-                        ParchasedData = invoiceData.Items,
-                    };
+                    //var Response = new ResponseInvoiceData
+                    //{
+                    //    NewInvoice = newInvoice,
+                    //    ParchasedData = invoiceData.Items,
+                    //};
 
-                    return Ok(Response);
+                    return Ok(newInvoice);
                 }
             }
             catch (Exception ex)
