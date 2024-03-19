@@ -86,12 +86,6 @@ namespace MCComputerSolutionsAPI.Controllers
 
                     newInvoice.InvoiceItems = invoiceItems;
 
-                    //var Response = new ResponseInvoiceData
-                    //{
-                    //    NewInvoice = newInvoice,
-                    //    ParchasedData = invoiceData.Items,
-                    //};
-
                     return Ok(newInvoice);
                 }
             }

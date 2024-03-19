@@ -6,20 +6,20 @@
         <div class="col-4" style="align-items: center;"><button type="button" class="btn btn-primary mt-1">+ New</button></div>
     </div>
 
-    <div>
+    <div *ngFor="let invoice of invoices">
 
         <div style="width:95%; background-color: aquamarine;" class="mt-4 ms-5 shadow p-3 mb-5 rounded">
             <div class="row mt-2">
-                <div class="col-8" style="background-color: bisque;">
-                    <h5>Invoice No : 3</h5>
+                <div class="col-8" >
+                    <h5>Invoice No : {{invoice.invoiceId}}</h5>
                 </div>
                 <div class="col-4"> 
-                    <p>Date : 22-03-2024</p>
+                    <p>Date : {{invoice.transactionDate}}</p>
                 </div>
             </div>
     
             <div>
-                <p>Customer Name : Nitharsha</p>
+                <p>Customer Name : {{invoice.customerName}}</p>
             </div>
 
             <div>
@@ -28,25 +28,25 @@
                     <thead>
                         <tr>
                             <th>Product Name</th>
-                            <th>Unit Price</th>
-                            <th>Quantity</th>
+                            <th style="text-align: center;">Unit Price</th>
+                            <th style="text-align: center;">Quantity</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Lux Soap</td>
-                            <td>155.00</td>
-                            <td>4</td>
+                        <tr *ngFor="let item of invoice.invoiceItems">
+                            <td>{{item.productName}}</td>
+                            <td style="text-align: center;">{{item.price}}</td>
+                            <td style="text-align: center;">{{item.quantity}}</td>
                         </tr>
 
                         <tr>
                             <td colspan="2">Discount</td>
-                            <td>0</td>
+                            <td >{{invoice.discount}}</td>
                         </tr>
 
                         <tr class="table-primary">
                             <td colspan="2">Total Amount</td>
-                            <td>840.00</td>
+                            <td><b>{{invoice.totalAmount}}</b></td>
                         </tr>
                     </tbody>
                 </table>

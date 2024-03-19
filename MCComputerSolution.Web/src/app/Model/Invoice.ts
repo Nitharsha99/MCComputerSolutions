@@ -1,9 +1,10 @@
-import { Product } from "./Product";
+import { InvoiceItem } from "./InvoiceItem";
 
 export interface Invoice {
+    invoiceId:number;
     customerName: string;
     transactionDate: Date;
-    products: Product[];
+    invoiceItems: InvoiceItem[];
     discount: number;
     totalAmount: number;
   }
