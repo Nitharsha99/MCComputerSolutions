@@ -1,9 +1,12 @@
-﻿namespace MCComputerSolutionsAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MCComputerSolutionsAPI.Models
 {
     public class Product
     {
+        [Key]
         public int ProductId { get; set; }
-        public string ProductName { get; set; } = string.Empty;
-        public decimal Price { get; set; }
+        public string? ProductName { get; set; }
+        public decimal? Price { get; set; }
     }
 }

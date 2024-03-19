@@ -1,13 +1,21 @@
-﻿namespace MCComputerSolutionsAPI.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace MCComputerSolutionsAPI.Models
 {
     public class InvoiceItem
     {
-        public int ItemId { get; set; }
+        [Key]
+        public int InvoiceItemId { get; set; }
+        [Required]
         public int InvoiceId { get; set; }
-        public Invoice Invoice { get; set; } = new Invoice();
-        public int ProductId { get; set; }
-        public Product Product { get; set; } = new Product();
+        [ForeignKey("InvoiceId")]
+        public virtual Invoice? Invoice { get; set; }
+        [Required]
+        public string? ProductName { get; set; }
+        [Required]
         public int Quantity { get; set; }
-
+        [Required]
+        public double Price { get; set; }
     }
 }

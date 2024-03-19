@@ -1,12 +1,19 @@
-﻿namespace MCComputerSolutionsAPI.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MCComputerSolutionsAPI.Models
 {
     public class Invoice
     {
+        [Key]
         public int InvoiceId { get; set; }
-        public string CustomerName { get; set; } = string.Empty;
+        [Required]
+        public string? CustomerName { get; set; }
+        [Required]
         public DateTime TransactionDate { get; set; }
-        public List<InvoiceItem> InvoiceItems { get; set; } = new List<InvoiceItem>();
+        [Required]
+        public virtual List<Product>? InvoiceItems { get; set; } 
         public double? Discount { get; set; }
+        [Required]
         public double TotalAmount { get; set; }
     }
 }
