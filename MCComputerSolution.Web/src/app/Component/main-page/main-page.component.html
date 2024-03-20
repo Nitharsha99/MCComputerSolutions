@@ -1,59 +1,63 @@
-<div style="background-color: antiquewhite;">
+<div>
 
     <div class="row mt-5 ms-3">
 
         <div class="col-8"><h2 class="ms-3">Invoices</h2></div>
-        <div class="col-4" style="align-items: center;"><button type="button" class="btn btn-primary mt-1">+ New</button></div>
+        <div class="col-4" style="align-items: center;"><button type="button" class="btn btn-primary mt-1" (click)="onNavigate()">+ New</button></div>
     </div>
 
-    <div *ngFor="let invoice of invoices">
+    <div *ngIf="invoices === null"> <p>There is no any invoices</p></div>
 
-        <div style="width:95%; background-color: aquamarine;" class="mt-4 ms-5 shadow p-3 mb-5 rounded">
-            <div class="row mt-2">
-                <div class="col-8" >
-                    <h5>Invoice No : {{invoice.invoiceId}}</h5>
+    <div>
+        <div *ngFor="let invoice of invoices">
+
+            <div style="width:95%;" class="mt-4 ms-5 shadow p-3 mb-5 rounded">
+                <div class="row mt-2">
+                    <div class="col-8" >
+                        <h5>Invoice No : {{invoice.invoiceId}}</h5>
+                    </div>
+                    <div class="col-4"> 
+                        <p>Date : {{invoice.transactionDate}}</p>
+                    </div>
                 </div>
-                <div class="col-4"> 
-                    <p>Date : {{invoice.transactionDate}}</p>
+        
+                <div>
+                    <p>Customer Name : {{invoice.customerName}}</p>
                 </div>
+    
+                <div>
+                    <p>Parchased Items : </p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th style="text-align: center;">Unit Price</th>
+                                <th style="text-align: center;">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of invoice.invoiceItems">
+                                <td>{{item.productName}}</td>
+                                <td style="text-align: center;">{{item.price}}</td>
+                                <td style="text-align: center;">{{item.quantity}}</td>
+                            </tr>
+    
+                            <tr>
+                                <td colspan="2">Discount</td>
+                                <td >{{invoice.discount}}</td>
+                            </tr>
+    
+                            <tr class="table-primary">
+                                <td colspan="2">Total Amount</td>
+                                <td><b>{{invoice.totalAmount}}</b></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
             </div>
     
-            <div>
-                <p>Customer Name : {{invoice.customerName}}</p>
-            </div>
-
-            <div>
-                <p>Parchased Items : </p>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Product Name</th>
-                            <th style="text-align: center;">Unit Price</th>
-                            <th style="text-align: center;">Quantity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let item of invoice.invoiceItems">
-                            <td>{{item.productName}}</td>
-                            <td style="text-align: center;">{{item.price}}</td>
-                            <td style="text-align: center;">{{item.quantity}}</td>
-                        </tr>
-
-                        <tr>
-                            <td colspan="2">Discount</td>
-                            <td >{{invoice.discount}}</td>
-                        </tr>
-
-                        <tr class="table-primary">
-                            <td colspan="2">Total Amount</td>
-                            <td><b>{{invoice.totalAmount}}</b></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            
         </div>
-
     </div>
     
 </div>

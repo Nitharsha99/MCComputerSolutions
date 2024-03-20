@@ -74,7 +74,8 @@ namespace MCComputerSolutionsAPI.Services
             
             if(invoice.Discount != 0)
             {
-                totalAmount = (double)(totalAmount * invoice.Discount) / 100;
+                double dicountAmount = (double)(totalAmount * invoice.Discount) / 100;
+                totalAmount = totalAmount - dicountAmount;
             }
 
             return totalAmount;
