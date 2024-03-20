@@ -68,18 +68,25 @@ export class NewInvoiceComponent implements OnInit{
     if(formValue.customerName && formValue.items[0].parchasedProductId && formValue.items[0].quantity){
       alert(JSON.stringify(this.invoiceForm.value, null, 2));
 
+      if(formValue.discount === null){
+        formValue.discount = 0;
+      }
+
       this.invoiceService.GenerateInvoice(formValue).subscribe( res => {
         this.invoiceData = res;
         console.log('response', this.invoiceData);
         this.invoiceVisible = true;
-        this.invoiceForm.reset();
-      })
+      });
 
-      console.log('okk');
     }
     else{
       alert('Please fill in all fields before generating the invoice.');
     }
+  }
+
+  reset(){
+    this.invoiceForm.reset();
+    this.invoiceVisible = false;
   }
 
   goToBack(){

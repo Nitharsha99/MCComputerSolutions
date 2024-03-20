@@ -2,14 +2,14 @@
 
     <div class="row mt-5 ms-3">
 
-        <div class="col-8"><h2 class="ms-3">Invoices</h2></div>
-        <div class="col-4" style="align-items: center;"><button type="button" class="btn btn-primary mt-1" (click)="onNavigate()">+ New</button></div>
+        <div class="col-10"><h2 class="ms-3">Invoices</h2></div>
+        <div class="col-2" style="text-align: center;"><button type="button" class="btn btn-primary mt-1" (click)="onNavigate()">+ New</button></div>
     </div>
 
     <div *ngIf="invoices === null"> <p>There is no any invoices</p></div>
 
     <div>
-        <div *ngFor="let invoice of invoices">
+        <div *ngFor="let invoice of pagedInvoices">
 
             <div style="width:95%;" class="mt-4 ms-5 shadow p-3 mb-5 rounded">
                 <div class="row mt-2">
@@ -44,12 +44,12 @@
     
                             <tr>
                                 <td colspan="2">Discount</td>
-                                <td >{{invoice.discount}}</td>
+                                <td >{{invoice.discount}}%</td>
                             </tr>
     
                             <tr class="table-primary">
-                                <td colspan="2">Total Amount</td>
-                                <td><b>{{invoice.totalAmount}}</b></td>
+                                <td colspan="2"><b>Total Amount</b></td>
+                                <td><b>Rs. {{invoice.totalAmount}}</b></td>
                             </tr>
                         </tbody>
                     </table>
@@ -59,5 +59,11 @@
     
         </div>
     </div>
+
+    <mat-paginator [pageSize]="pageSize"
+               [pageSizeOptions]="pageSizeOptions"
+               [length]="invoices.length"
+               (page)="onPageChange($event)">
+    </mat-paginator>
     
 </div>
